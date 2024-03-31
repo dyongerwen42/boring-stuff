@@ -1,5 +1,7 @@
 const express = require("express");
 const nodemailer = require('nodemailer');
+const path = require('path');
+
 
 const stripe = require("stripe")(
   "sk_test_51FqRDiArHu3DdIthsIF6xQTRG9Ktazoq0WPK3WqWlAd2j6vCs0mA3icfRruZe8m9utmd9n5fvkOYEbCC1pGeVjc400uN1XvhNI"
@@ -396,6 +398,15 @@ app.get('/presets', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3005;
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

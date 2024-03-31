@@ -490,7 +490,7 @@ function App() {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [customPackage, setCustomPackage] = useState("");
   const [totalCredits, setTotalCredits] = useState(0); // Add this line
-  const [showSerialCode, setShowSerialCode] = useState(false);
+  const [showSerialCode, setShowSerialCode] = useState(true);
   const [serialCode_state, setSerialCode_state] = useState(false);
   const serialCodeRef = useRef(null);
   const [email, setEmail] = useState("");
@@ -591,69 +591,67 @@ function App() {
 
     return (
       <div className="p-6  text-white rounded-md shadow-lg">
-        <Modal
-          isOpen={showSerialCode}
-          onRequestClose={() => setShowSerialCode(false)}
-          contentLabel="Serial Code"
-          className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-black bg-opacity-50 z-50"
-          style={{ overlay: { zIndex: 50000 } }}
+<Modal
+  isOpen={showSerialCode}
+  onRequestClose={() => setShowSerialCode(false)}
+  contentLabel="Serial Code"
+  className="flex items-center justify-center fixed inset-0 bg-black bg-opacity-50 z-[50000]"
+>
+  <div className="bg-gray-800 text-white rounded-lg  w-md  m-4">
+    <div className="flex flex-col items-start p-4">
+      <div className="flex items-center w-full">
+        <h2 className="text-white text-base sm:text-lg md:text-xl">Payment Successful</h2>
+        <svg
+          onClick={() => setShowSerialCode(false)}
+          className="ml-auto fill-current text-white w-8 h-8 cursor-pointer p-1" // Adjusted size for better mobile interaction
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 18 18"
         >
-          <div
-            style={{ width: "80%" }}
-            className="bg-purple-800 text-white rounded-lg "
-          >
-            <div className="flex flex-col items-start p-4">
-              <div className="flex items-center w-full">
-                <div className="text-white font-medium text-lg">
-                  Payment Successful
-                </div>
-                <svg
-                  onClick={() => setShowSerialCode(false)}
-                  className="ml-auto fill-current text-white w-6 h-6 cursor-pointer"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 18 18"
-                >
-                  <path d="M18 1.3L16.7 0 9 7.6 1.3 0 0 1.3 7.6 9 0 16.7 1.3 18 9 10.4l7.7 7.6 1.3-1.3L10.4 9z" />
-                </svg>
-              </div>
-              <hr className="border-purple-600" />
-              <div className="my-4">
-                <p className="text-lg overflow-x-auto whitespace-nowrap">
-                  Your serial code is:{" "}
-                  <span
-                    ref={serialCodeRef}
-                    className="font-bold text-purple-400"
-                  >
-                    {serialCode_state}
-                  </span>
-                </p>
-                <button
-                  onClick={copyToClipboard}
-                  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mt-4"
-                >
-                  Copy to Clipboard
-                </button>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="mt-4 w-full px-3 py-2 text-gray-700 bg-gray-200 rounded outline-none focus:shadow-outline"
-                  placeholder="Enter your email..."
-                />
-                <button
-                  onClick={sendSerialToEmail}
-                  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mt-4"
-                >
-                  Send Serial to My Email
-                </button>
-                <p className="mt-4 text-gray-300">
-                  Please save this serial code in a safe place. If you lose it,
-                  contact us and we can recover it for you.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Modal>
+          <path d="M18 1.3L16.7 0 9 7.6 1.3 0 0 1.3 7.6 9 0 16.7 1.3 18 9 10.4l7.7 7.6 1.3-1.3L10.4 9z" />
+        </svg>
+      </div>
+      <hr className="border-purple-600 my-2 w-full" />
+      <div className="p-4 rounded-lg shadow-md overflow-auto">
+      <div className="overflow-x-auto" style={{ maxWidth: '100%' }}> {/* Outer div to handle scrolling */}
+  <p className="text-sm md:text-md leading-relaxed">
+    Your serial code is: 
+    <span 
+      ref={serialCodeRef} 
+      className="font-semibold text-purple-600 break-all" /* Changed from break-words to break-all */
+      style={{ maxWidth: '100%' }} /* Maximum width to ensure it doesn't force the layout to expand */
+    >
+      {serialCode_state}
+    </span>
+  </p>
+</div>
+        <button
+          onClick={copyToClipboard}
+          className="w-full bg-purple-600 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg mt-4 transition duration-200 ease-in-out"
+        >
+          Copy to Clipboard
+        </button>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-4 w-full px-4 py-2 text-gray-800 bg-white border border-gray-300 rounded-lg outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
+          placeholder="Enter your email..."
+        />
+        <button
+          onClick={sendSerialToEmail}
+          className="w-full bg-purple-600 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg mt-4 mb-2 transition duration-200 ease-in-out"
+        >
+          Send Serial to My Email
+        </button>
+        <p className="text-gray-400 mt-2 text-xs sm:text-sm">
+          Please save this serial code in a safe place. If you lose it, contact us and we can recover it for you.
+        </p>
+      </div>
+    </div>
+  </div>
+</Modal>
+
+
         <h3 className="text-xl mb-4 font-bold">
           Total Credits: {totalCredits}
         </h3>
