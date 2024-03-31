@@ -257,8 +257,8 @@ app.post("/create-checkout-session", async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `http://localhost:3000?session_id={CHECKOUT_SESSION_ID}&serialCode=${serialCode}&credits=${amount}&instances=${maxInstances}`,
-      cancel_url: "http://localhost:3000",
+      success_url: `https://agentify-payment.pro?session_id={CHECKOUT_SESSION_ID}&serialCode=${serialCode}&credits=${amount}&instances=${maxInstances}`,
+      cancel_url: "https://agentify-payment.com",
     });
 
     res.send({ url: session.url, maxInstances, serialCode });
