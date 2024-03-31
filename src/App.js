@@ -490,7 +490,7 @@ function App() {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [customPackage, setCustomPackage] = useState("");
   const [totalCredits, setTotalCredits] = useState(0); // Add this line
-  const [showSerialCode, setShowSerialCode] = useState(true);
+  const [showSerialCode, setShowSerialCode] = useState(false);
   const [serialCode_state, setSerialCode_state] = useState(false);
   const serialCodeRef = useRef(null);
   const [email, setEmail] = useState("");
